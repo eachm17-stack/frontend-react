@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://laravel-task-api.onrender.com/api';
+const getApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL || 'https://laravel-task-api.onrender.com/api';
+  const clean = envUrl.trim().replace(/\/+$/, '');
+  return clean.endsWith('/api') ? clean : `${clean}/api`;
+};
+
+const API_BASE = getApiBaseUrl();
 
 export default function App() {
   const [user, setUser] = useState(() => {
